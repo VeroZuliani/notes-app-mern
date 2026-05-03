@@ -3,9 +3,11 @@ import notesRouter from "./routes/notesRouter.js"
 import dotenv from "dotenv"
 dotenv.config()
 import { connectDB } from "./config/db.js"
+import cors from 'cors'
 
 const app = express()
 
+app.use(cors({ origin: process.env.FRONTEND_URL }))
 app.use(express.json())
 
 app.use("/app/notes", notesRouter)
