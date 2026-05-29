@@ -9,7 +9,7 @@ const apiURL = import.meta.env.VITE_API_URL;
 const HomePage = () => {
 
   const [notes, setNotes] = useState([])
-  const [loadind, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() =>{
     const fetchData = async() => {
@@ -26,7 +26,13 @@ const HomePage = () => {
     fetchData()
   }, []);
 
-if(loadind) 
+  //Filtra estado local y elimina note 
+  const handleDeleteState = (idDeleted) => {
+    const notesUpdated = notes.filter(note => note._id !== idDeleted)
+    setNotes(notesUpdated)
+  }
+
+if(loading) 
   return <span>Cargando...</span>
 
   return (
@@ -47,6 +53,7 @@ if(loadind)
           description={note.description}
           id={note._id}
           date={formatDate(note.createdAt)}
+          onDelete={handleDeleteState}
         />
       ))}
 

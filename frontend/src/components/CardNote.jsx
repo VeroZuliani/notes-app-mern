@@ -2,8 +2,35 @@ import {Card, CardActions, CardContent, CardMedia, Button, Typography, Grid, Ico
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditSquareIcon from '@mui/icons-material/EditSquare';
 import {format}  from 'date-fns';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const CardNote = ({title, description, id, date}) => {
+const apiURL = import.meta.env.VITE_API_URL;
+
+const CardNote = ({title, description, id, date, onDelete}) => {
+  
+  const handleDelete = async() => {
+    try {
+      const res = await axios
+      .delete(`${apiURL}/app/notes/${id}`)
+      
+      if(res.status !== 200){
+        throw new Error("Error al eliminar una nota")
+      }
+      toast.success("Nota eliminada con éxito!", {
+        position:"bottom-center",
+        autoClose:300,
+        theme:"colored"
+      })
+
+      if(onDelete){
+        onDelete(id)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
   return (
       <Grid>
         <Card sx={{ maxWidth: 320, borderRadius: 4, backgroundColor:'#fdfdfd' }}>
@@ -23,7 +50,7 @@ const CardNote = ({title, description, id, date}) => {
               <IconButton aria-label="edit">
                 <EditSquareIcon />
               </IconButton>
-              <IconButton aria-label="delete">
+              <IconButton aria-label="delete" onClick={handleDelete}>
                 <DeleteIcon sx={{ color: 'red'}}/>
               </IconButton>
             </CardActions>
