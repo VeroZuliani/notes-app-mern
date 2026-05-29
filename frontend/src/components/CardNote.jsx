@@ -4,11 +4,18 @@ import EditSquareIcon from '@mui/icons-material/EditSquare';
 import {format}  from 'date-fns';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom'
 
 const apiURL = import.meta.env.VITE_API_URL;
 
 const CardNote = ({title, description, id, date, onDelete}) => {
-  
+ 
+  const navigate = useNavigate()
+
+  const handleEdit = () => {
+    navigate(`/EditNotePage/${id}`)
+  }  
+
   const handleDelete = async() => {
     try {
       const res = await axios
@@ -47,7 +54,7 @@ const CardNote = ({title, description, id, date, onDelete}) => {
               <time dateTime="{date}">{date}</time>
             </Typography>
             <CardActions>
-              <IconButton aria-label="edit">
+              <IconButton aria-label="edit" onClick={handleEdit}>
                 <EditSquareIcon />
               </IconButton>
               <IconButton aria-label="delete" onClick={handleDelete}>

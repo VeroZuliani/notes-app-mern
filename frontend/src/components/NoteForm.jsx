@@ -3,14 +3,13 @@ import { useEffect, useState } from 'react';
 
 const NoteForm = ({onSubmit, initialDate}) => {
   
-  const [notes, setNotes] =  useState(initialDate)
-
+  const [notes, setNotes] =  useState(initialDate || { title: '', description: '' })
+  
   //Necesitamos actualizar los cambios si los datos iniciales cambian
   useEffect(() => {
-    setNotes[initialDate]
+    setNotes(initialDate)
   }, [initialDate])
   
-
   const handleChange = (e) => {
     setNotes({
       ...notes,
@@ -42,7 +41,7 @@ const NoteForm = ({onSubmit, initialDate}) => {
         variant="outlined" 
         required 
         fullWidth 
-        value={notes.title}
+        value={notes.title || ''}
         onChange={handleChange}
         sx={inputGrisStyle}
       />
@@ -54,7 +53,7 @@ const NoteForm = ({onSubmit, initialDate}) => {
         multiline 
         rows={4} 
         fullWidth 
-        value={notes.description}
+        value={notes.description || ''}
         onChange={handleChange}
         sx={inputGrisStyle}
       />

@@ -13,20 +13,20 @@ const CreateNotePage = () => {
 
   const handleCreate = async(note) => {
     try {
-      await axios
+      const res = await axios
       .post(`${apiURL}/app/notes`, note)
-      .then(res => {
-        if(res.status !== 201){
-          throw new Error("Error al crear una nota")
-        }
-        toast.success("Nota creada con éxito!", {
-          position:"bottom-center",
-          autoClose:300,
-          theme:"colored"
-        })
-        //Para volver a pagina de inicio al "Guardar una nota"
-        navigate("/")
+        
+      if(res.status !== 201){
+        throw new Error("Error al crear una nota")
+      }
+      toast.success("Nota creada con éxito!", {
+        position:"bottom-center",
+        autoClose:300,
+        theme:"colored"
       })
+        //Para volver a pagina de inicio al "Guardar una nota"
+      navigate("/")
+
     } catch (error) {
       console.log(error)
     }
@@ -35,7 +35,7 @@ const CreateNotePage = () => {
   return (
     <Box sx={{ py: 4, backgroundColor:'#eff2f1', minHeight: '100vh',}}>
       <Container maxWidth="sm">
-      <NoteForm onSubmit={handleCreate} initialDate={{title:'', content:''}} />
+        <NoteForm onSubmit={handleCreate} initialDate={{title:'', description:''}} />
       </Container>
     </Box>
   )
