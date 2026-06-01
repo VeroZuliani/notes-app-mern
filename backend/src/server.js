@@ -7,7 +7,12 @@ import cors from 'cors'
 
 const app = express()
 
-app.use(cors({ origin: process.env.FRONTEND_URL }))
+app.use(cors({ 
+    origin: [
+        process.env.FRONTEND_URL,
+        "https://notes-app-mern-cyan.vercel.app"
+     ]
+}))
 app.use(express.json())
 
 app.use("/app/notes", notesRouter)
