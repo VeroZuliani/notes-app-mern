@@ -12,6 +12,7 @@ Esta es una aplicación web fullstack responsive diseñada para la gestión inte
 * **Axios** (Cliente HTTP para consumo de API)
 * **React Toastify** (Notificaciones flotantes)
 
+### Backend
 * **Node.js** con **Express** (Creación del servidor y arquitectura de rutas)
 * **MongoDB** con **Mongoose** (Modelado de datos y persistencia)
 * **Cors** & **Dotenv** (Configuración de seguridad y variables de entorno)
